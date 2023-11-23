@@ -43,7 +43,7 @@ UserSchema.statics.updateSingleUserById = async function (userId:number, updateD
     const user = await User.findOneAndUpdate(
         {userId},
         {$set : updateDoc},
-        {new: true}
+        {new: true, runValidators : true},
     );
     return user
 }
