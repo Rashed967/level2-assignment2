@@ -33,19 +33,29 @@ export const UserSchema = new Schema<TUser, UserMethodModel>({
 });
 
 // user static method
-
+// find single user by userid
 UserSchema.statics.findSingleUserById = async function (userId: string) {
   const user = await User.findOne({ userId }, { password: 0 });
   return user;
 };
 
-UserSchema.statics.updateSingleUserById = async function (userId:number, updateDoc) {
-    const user = await User.findOneAndUpdate(
-        {userId},
-        {$set : updateDoc},
-        {new: true, runValidators : true},
-    );
-    return user
-}
+// update single user
+UserSchema.statics.updateSingleUserById = async function (
+  userId: number,
+  updateDoc,
+) {
+  const user = await User.findOneAndUpdate(
+    { userId },
+    { $set: updateDoc },
+    { new: true, runValidators: true },
+  );
+  return user;
+};
+
+// delete single user
+UserSchema.statics.deleteSingleUserById = async function (userId) {
+  const user = await User.findOneAndDelete({ userId });
+  return user;
+};
 
 export const User = model<TUser, UserMethodModel>('User', UserSchema);

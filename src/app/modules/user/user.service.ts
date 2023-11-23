@@ -28,9 +28,16 @@ const updateUserById = async (userId: number, updateDoc) => {
   return result;
 };
 
+// delete single user by id
+const deleteSingleUser = async (userId: number) => {
+  const result = await User.deleteSingleUserById(userId);
+  return result;
+};
+
 export const userBusinessLogic = {
   createUserInDB,
   getAllUserFromDB,
   getAUserById,
   updateUserById,
+  deleteSingleUser
 };

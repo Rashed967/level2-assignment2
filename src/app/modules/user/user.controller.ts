@@ -77,9 +77,27 @@ const updateSingleUserById = async (req: Request, res: Response) => {
   }
 };
 
+const deleteSingleUser = async (req: Request, res: Response) => {
+  try {
+    const userIdInNumber = parseInt(req.params.userId);
+    const result = await userBusinessLogic.deleteSingleUser(userIdInNumber);
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'something went wrong!!',
+    });
+  }
+};
+
 export const userControllers = {
   createUser,
   getAllUser,
   getAUserById,
   updateSingleUserById,
+  deleteSingleUser,
 };

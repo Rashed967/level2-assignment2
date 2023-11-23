@@ -31,4 +31,5 @@ export interface TUser {
 export interface UserMethodModel extends Model<TUser> {
   findSingleUserById(userId: number): Promise<TUser | null>;
   updateSingleUserById(userId: number, updateDoc): Promise<TUser | null>;
+  deleteSingleUserById(userId: number): Promise<TUser | null>;
 }
