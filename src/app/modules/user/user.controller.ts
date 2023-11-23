@@ -39,7 +39,47 @@ const getAllUser = async (req: Request, res: Response) => {
   }
 };
 
+// get a single user controller logic
+const getAUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const result = await userBusinessLogic.getAUserById(userId);
+    res.status(201).json({
+      success: true,
+      message: 'User found successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: 'failed',
+      message: error.message || 'No found anything',
+      error: error,
+    });
+  }
+};
+// get a single user controller logic
+const updateSingleUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const user = req.body;
+    const result = await userBusinessLogic.updateUserById(userId, user);
+    res.status(201).json({
+      success: true,
+      message: 'User info updated successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: 'failed',
+      message: error.message || 'Something went wrong!!!',
+      error: error,
+    });
+  }
+};
+
 export const userControllers = {
   createUser,
   getAllUser,
+  getAUserById,
+  updateSingleUserById,
 };

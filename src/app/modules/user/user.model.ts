@@ -1,5 +1,10 @@
 import { Schema, model } from 'mongoose';
-import { TUser, TUserAddress, TUserName } from './user.interface';
+import {
+  TUser,
+  TUserAddress,
+  TUserName,
+  UserMethodModel,
+} from './user.interface';
 
 const UserNameSchema = new Schema<TUserName>({
   firstName: { type: String, required: true },
@@ -12,7 +17,7 @@ const UserAddressSchema = new Schema<TUserAddress>({
   country: String,
 });
 
-export const UserSchema = new Schema<TUser>({
+export const UserSchema = new Schema<TUser, UserMethodModel>({
   userId: { type: Number, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -27,4 +32,20 @@ export const UserSchema = new Schema<TUser>({
   address: { type: UserAddressSchema, required: true },
 });
 
-export const User = model('User', UserSchema);
+// user static method
+
+UserSchema.statics.findSingleUserById = async function (userId: string) {
+  const user = await User.findOne({ userId }, { password: 0 });
+  return user;
+};
+
+UserSchema.statics.updateSingleUserById = async function (userId:number, updateDoc) {
+    const user = await User.findOneAndUpdate(
+        {userId},
+        {$set : updateDoc},
+        {new: true}
+    );
+    return user
+}
+
+export const User = model<TUser, UserMethodModel>('User', UserSchema);
