@@ -100,22 +100,21 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const userIdInNumber = parseInt(req.params.userId);
     const result = await userBusinessLogic.deleteSingleUser(userIdInNumber);
-    if(result){
+    if (result) {
       res.status(200).json({
-        success : true,
-        message : "User deleted successfully!",
-        data  : null
+        success: true,
+        message: 'User deleted successfully!',
+        data: null,
       });
     }
     res.status(500).json({
       success: false,
-      message: "User not found",
+      message: 'User not found',
       error: {
         code: 404,
-        description: "User not found!"
-    }
-    })
-   
+        description: 'User not found!',
+      },
+    });
   } catch (error: any) {
     res.status(500).json({
       success: false,
@@ -131,10 +130,20 @@ const addProduct = async (req: Request, res: Response) => {
     const userIdInNumber = parseInt(req.params.userId);
     const product = req.body;
     const result = await userBusinessLogic.addProduct(userIdInNumber, product);
-    res.status(200).json({
-      success: true,
-      message: 'Order created successfully!',
-      data: result,
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Order created successfully!',
+        data: result,
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: 'User not found',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   } catch (error: any) {
     res.status(500).json({
@@ -145,7 +154,7 @@ const addProduct = async (req: Request, res: Response) => {
   }
 };
 
-// get all order from single user
+// get all order from a single user
 const getOrdersbyId = async (req: Request, res: Response) => {
   try {
     const userIdInNumber = parseInt(req.params.userId);

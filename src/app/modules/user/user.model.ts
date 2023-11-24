@@ -87,14 +87,17 @@ UserSchema.statics.addProductToOrderArray = async function (
 ) {
   try {
     const user = await User.findOne({ userId });
-    if ('orders' in user) {
-      user.orders.push(product);
-      const result = await user.save();
-      return result;
-    } else {
-      user.orders = [ProductSchema];
-      const result = await user.save();
-      return result;
+    if (user) {
+      if ('orders' in user) {
+        user.orders.push(product);
+        const result = await user.save();
+        return result;
+      } else {
+        user.orders = [ProductSchema];
+        const result = await user.save();
+        return result;
+      }
+      return null;
     }
   } catch (error) {
     return error;
