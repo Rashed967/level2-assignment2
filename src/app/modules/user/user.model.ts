@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import {
+  TProduct,
   TUser,
   TUserAddress,
   TUserName,
@@ -17,6 +18,12 @@ const UserAddressSchema = new Schema<TUserAddress>({
   country: String,
 });
 
+const ProductSchema = new Schema({
+  productName: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+});
+
 export const UserSchema = new Schema<TUser, UserMethodModel>({
   userId: { type: Number, required: true, unique: true },
   username: { type: String, required: true, unique: true },
@@ -30,6 +37,7 @@ export const UserSchema = new Schema<TUser, UserMethodModel>({
     required: true,
   },
   address: { type: UserAddressSchema, required: true },
+  orders: { type: Array(ProductSchema) },
 });
 
 // user static method
@@ -56,6 +64,50 @@ UserSchema.statics.updateSingleUserById = async function (
 UserSchema.statics.deleteSingleUserById = async function (userId) {
   const user = await User.findOneAndDelete({ userId });
   return user;
+};
+
+// add product to array
+UserSchema.statics.addProductToOrderArray = async function (
+  userId: number,
+  product: TProduct,
+) {
+  try {
+    const user = await User.findOne({ userId });
+    if ('orders' in user) {
+      user.orders.push(product);
+      const result = await user.save();
+      return result;
+    } else {
+      user.orders = [ProductSchema];
+      const result = await user.save();
+      return result;
+    }
+  } catch (error) {
+    return error;
+  }
+};
+
+// get all order from a single user
+UserSchema.statics.getAllOrderFromSingleUser = async function (userId: number) {
+  const orders = await User.findOne({ userId }, { orders: 1 });
+  return orders;
+};
+
+// count total price of orders for a single user
+UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
+  userId: number,
+) {
+  try {
+    const user = await User.aggregate([
+      {
+        $match: { userId: { $eq: userId } },
+      },
+    ]);
+
+    return user && user;
+  } catch (error) {
+    return 'user not found';
+  }
 };
 
 export const User = model<TUser, UserMethodModel>('User', UserSchema);

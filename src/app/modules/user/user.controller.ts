@@ -90,6 +90,66 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: error.message || 'something went wrong!!',
+      error: error,
+    });
+  }
+};
+
+// add product to order array
+const addProduct = async (req: Request, res: Response) => {
+  try {
+    const userIdInNumber = parseInt(req.params.userId);
+    const product = req.body;
+    const result = await userBusinessLogic.addProduct(userIdInNumber, product);
+    res.status(200).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'something went wrong!!',
+      error: error,
+    });
+  }
+};
+
+// get all order from single user
+const getOrdersbyId = async (req: Request, res: Response) => {
+  try {
+    const userIdInNumber = parseInt(req.params.userId);
+    const result = await userBusinessLogic.getOrdersById(userIdInNumber);
+    res.status(200).json({
+      success: true,
+      message: 'Orders found successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).josn({
+      success: false,
+      message: error.message || 'Something went wrong!',
+      error: MediaError,
+    });
+  }
+};
+
+// count total price by id
+const countTotalPriceById = async (req: Request, res: Response) => {
+  try {
+    const userIdInNumber = parseInt(req.params.userId);
+    const result = await userBusinessLogic.countTotalPriceById(userIdInNumber);
+    console.log(result);
+    res.status(200).json({
+      success: true,
+      message: 'Total price found successfully',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Something went wrong!',
+      error: error,
     });
   }
 };
@@ -100,4 +160,7 @@ export const userControllers = {
   getAUserById,
   updateSingleUserById,
   deleteSingleUser,
+  addProduct,
+  getOrdersbyId,
+  countTotalPriceById,
 };
