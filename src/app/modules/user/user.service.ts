@@ -3,7 +3,7 @@ import { TProduct, TUser } from './user.interface';
 
 // create user in db
 const createUserInDB = async (user: TUser) => {
-  const result = await User.create(user);
+  const result = await User.createUserInDB(user);
   return result;
 };
 
@@ -23,7 +23,7 @@ const getAUserById = async (userId: number) => {
 };
 
 // update specific user by id
-const updateUserById = async (userId: number, updateDoc) => {
+const updateUserById = async (userId: number, updateDoc: unknown) => {
   const result = await User.updateSingleUserById(userId, updateDoc);
   return result;
 };
@@ -49,7 +49,6 @@ const getOrdersById = async (userId: number) => {
 // count total price of orders for a single user
 const countTotalPriceById = async (userId: number) => {
   const result = await User.countTotalPriceOfOrdersforSingleUser(userId);
-  console.log(result);
   return result;
 };
 

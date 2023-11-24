@@ -4,7 +4,6 @@ import { userBusinessLogic } from './user.service';
 // create a user controller logic
 const createUser = async (req: Request, res: Response) => {
   try {
-    console.log('from user controller');
     const user = req.body;
     const result = await userBusinessLogic.createUserInDB(user);
     res.status(201).json({
@@ -15,8 +14,8 @@ const createUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: 'failed',
-      message: error.message,
-      error: error,
+      message: 'Cannot create a user',
+      error: error.message,
     });
   }
 };
@@ -44,10 +43,20 @@ const getAUserById = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.userId);
     const result = await userBusinessLogic.getAUserById(userId);
-    res.status(201).json({
-      success: true,
-      message: 'User found successfully',
-      data: result,
+    if (result) {
+      res.status(201).json({
+        success: true,
+        message: 'User found successfully',
+        data: result,
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: 'User not found',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   } catch (error: any) {
     res.status(500).json({
@@ -63,10 +72,20 @@ const updateSingleUserById = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.userId);
     const user = req.body;
     const result = await userBusinessLogic.updateUserById(userId, user);
-    res.status(201).json({
-      success: true,
-      message: 'User info updated successfully',
-      data: result,
+    if (result) {
+      res.status(201).json({
+        success: true,
+        message: 'User info updated successfully',
+        data: result,
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   } catch (error: any) {
     res.status(500).json({
@@ -81,11 +100,22 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const userIdInNumber = parseInt(req.params.userId);
     const result = await userBusinessLogic.deleteSingleUser(userIdInNumber);
-    res.status(200).json({
-      success: true,
-      message: 'User deleted successfully',
-      data: result,
-    });
+    if(result){
+      res.status(200).json({
+        success : true,
+        message : "User deleted successfully!",
+        data  : null
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: "User not found",
+      error: {
+        code: 404,
+        description: "User not found!"
+    }
+    })
+   
   } catch (error: any) {
     res.status(500).json({
       success: false,
@@ -139,10 +169,9 @@ const countTotalPriceById = async (req: Request, res: Response) => {
   try {
     const userIdInNumber = parseInt(req.params.userId);
     const result = await userBusinessLogic.countTotalPriceById(userIdInNumber);
-    console.log(result);
     res.status(200).json({
       success: true,
-      message: 'Total price found successfully',
+      message: 'Total price calculated successfully',
       data: result,
     });
   } catch (error) {

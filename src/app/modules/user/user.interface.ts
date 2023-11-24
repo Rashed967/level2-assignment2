@@ -41,11 +41,13 @@ export interface TUser {
 // }
 
 export interface UserMethodModel extends Model<TUser> {
+  createUserInDB(user: TUser): Promise<TUser | null>;
   findSingleUserById(userId: number): Promise<TUser | null>;
   updateSingleUserById(userId: number, updateDoc): Promise<TUser | null>;
   deleteSingleUserById(userId: number): Promise<TUser | null>;
   addProductToOrderArray(userId: number, product:TProduct) : Promise<TProduct | null>,
   getAllOrderFromSingleUser(userId: number) : Promise<TProduct[] | null>,
-  countTotalPriceOfOrdersforSingleUser(userId: number) : Promise<T>
+  countTotalPriceOfOrdersforSingleUser(userId: number) : Promise<T>,
+  // checkExistingUser(userId: number) : Promise<boolean>
 
 }

@@ -6,6 +6,7 @@ import {
   TUserName,
   UserMethodModel,
 } from './user.interface';
+import bcrypt from 'bcrypt';
 
 const UserNameSchema = new Schema<TUserName>({
   firstName: { type: String, required: true },
@@ -41,6 +42,19 @@ export const UserSchema = new Schema<TUser, UserMethodModel>({
 });
 
 // user static method
+// create user in DB
+UserSchema.statics.createUserInDB = async function (user: TUser) {
+  try {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    user.password = hashedPassword;
+    const result = await User.create(user);
+    // result.password = '';
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 // find single user by userid
 UserSchema.statics.findSingleUserById = async function (userId: string) {
   const user = await User.findOne({ userId }, { password: 0 });
@@ -55,7 +69,7 @@ UserSchema.statics.updateSingleUserById = async function (
   const user = await User.findOneAndUpdate(
     { userId },
     { $set: updateDoc },
-    { new: true, runValidators: true },
+    { new: true, runValidators: true, projection: { password: 0 } },
   );
   return user;
 };
@@ -98,16 +112,34 @@ UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
   userId: number,
 ) {
   try {
-    const user = await User.aggregate([
+    const toalPrice = User.aggregate([
       {
-        $match: { userId: { $eq: userId } },
+        $match: {
+          userId: { $eq: userId },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          totalPrice: {
+            $sum: '$orders.price',
+          },
+        },
       },
     ]);
-
-    return user && user;
+    return toalPrice;
   } catch (error) {
     return 'user not found';
   }
 };
+
+// middle ware
+// post document midllware
+UserSchema.post('save', (doc, next) => {
+  doc.password = '';
+  next();
+});
+
+// update query middleware
 
 export const User = model<TUser, UserMethodModel>('User', UserSchema);
