@@ -115,7 +115,7 @@ UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
   userId: number,
 ) {
   try {
-    const toalPrice = User.aggregate([
+    const totalPriceAgrregate = User.aggregate([
       {
         $match: {
           userId: { $eq: userId },
@@ -130,9 +130,10 @@ UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
         },
       },
     ]);
-    return toalPrice;
+    console.log( totalPrice);
+    return typeof totalPrice === 'number';
   } catch (error) {
-    return 'user not found';
+    return error;
   }
 };
 
