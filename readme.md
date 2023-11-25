@@ -14,38 +14,38 @@
 
 এটাকে ব্যবহার করতে চাইলে আপনার মেশিনে বেশ কিছু লাইব্ররি ও টুল ডিপেন্ডেসি হিসেবে এ্যাড করতে হবে। নীচে আমি সবগুলোর তালিকা দিয়ে দিচ্ছি।
 
-**Install @vercel/node**
+### Install @vercel/node
 
 `npm install @vercel/node@3.0.11`
 
-**Install bcrypt**
+### Install bcrypt
 `npm install bcrypt@5.1.1`
 
-**Install bcryptjs**
+### Install bcryptjs
 `npm install bcryptjs@2.4.3`
 
-**Install cors**
+### Install cors
 `npm install cors@2.8.5`
 
-**Install debug**
+### Install debug
 `npm install debug@4.3.4`
 
-**Install dotenv**
+### Install dotenv
 `npm install dotenv@16.3.1`
 
-**Install express**
+### Install express
 `npm install express@4.18.2`
 
-**Install mongodb**
+### Install mongodb
 `npm install mongodb@6.3.0`
 
-**Install mongoose**
+### Install mongoose
 `npm install mongoose@8.0.1`
 
-**Install nodemon**
+### Install nodemon
 `npm install nodemon@3.0.1`
 
-**Install uuid**
+### Install uuid
 `npm install uuid@7.0.3`
 
 ## for dev dependency
