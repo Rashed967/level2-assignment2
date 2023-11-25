@@ -44,15 +44,10 @@ export const UserSchema = new Schema<TUser, UserMethodModel>({
 // user static method
 // create user in DB
 UserSchema.statics.createUserInDB = async function (user: TUser) {
-  try {
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
-    const result = await User.create(user);
-    // result.password = '';
-    return result;
-  } catch (error) {
-    return error;
-  }
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  user.password = hashedPassword;
+  const result = await User.create(user);
+  return result;
 };
 
 // find single user by userid
