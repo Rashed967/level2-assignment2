@@ -52,6 +52,12 @@ const countTotalPriceById = async (userId: number) => {
   return result;
 };
 
+// check existing user
+const checkExistingUser = async (userId: number) => {
+  const result = await User.checkExistingUser(userId);
+  return result;
+};
+
 export const userBusinessLogic = {
   createUserInDB,
   getAllUserFromDB,
@@ -61,4 +67,5 @@ export const userBusinessLogic = {
   addProduct,
   getOrdersById,
   countTotalPriceById,
+  checkExistingUser,
 };

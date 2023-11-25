@@ -114,7 +114,6 @@ UserSchema.statics.getAllOrderFromSingleUser = async function (userId: number) {
 UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
   userId: number,
 ) {
-  try {
     const totalPriceAgrregate = User.aggregate([
       {
         $match: {
@@ -130,11 +129,13 @@ UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
         },
       },
     ]);
-    console.log( totalPrice);
-    return typeof totalPrice === 'number';
-  } catch (error) {
-    return error;
-  }
+    return totalPriceAgrregate;
+};
+
+// check existing user
+UserSchema.statics.checkExistingUser = async (userId: number) => {
+  const result = await User.findOne({ userId });
+  return result;
 };
 
 // middle ware

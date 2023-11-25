@@ -48,6 +48,6 @@ export interface UserMethodModel extends Model<TUser> {
   addProductToOrderArray(userId: number, product:TProduct) : Promise<TProduct | null>,
   getAllOrderFromSingleUser(userId: number) : Promise<TProduct[] | null>,
   countTotalPriceOfOrdersforSingleUser(userId: number) : Promise<T>,
-  // checkExistingUser(userId: number) : Promise<boolean>
+  checkExistingUser(userId: number) : Promise<TUser>
 
 }
