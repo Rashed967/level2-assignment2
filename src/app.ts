@@ -12,7 +12,17 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.json({
+    success: true,
+    message: 'Welcome to user management server',
+  });
+});
+
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Something went wrong, check again!, Thanks.',
+  });
 });
 
 export default app;
