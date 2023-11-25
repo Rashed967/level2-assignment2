@@ -19,21 +19,27 @@
 `npm install @vercel/node@3.0.11`
 
 ### Install cors
+
 `npm install cors@2.8.5`
 
 ### Install dotenv
+
 `npm install dotenv@16.3.1`
 
 ### Install express
+
 `npm install express@4.18.2`
 
 ### Install mongodb
+
 `npm install mongodb@6.3.0`
 
 ### Install mongoose
+
 `npm install mongoose@8.0.1`
 
 ### Install nodemon
+
 `npm install nodemon@3.0.1`
 
 ## for dev dependency
@@ -85,3 +91,17 @@
 ## কনফিগারেশন
 
 কনফিগারেশনের জন্য আপনার প্রজেক্টে `eslint` এবং `prettier` সেট করা লাগতে পারে। কীভাবে এই দুটো ইনস্টল করা যায় বিস্তারিত জানতে [এই টিউটোরিয়ালটি](https://blog.logrocket.com/linting-typescript-eslint-prettier/) ফলো করুন।
+
+## সকল রাউট সমূহ
+
+`POST /api/users` = এই রাউটের মাধ্যমে ডাটাবেজে নতুন ইউসার তৈরী করা যাবে।
+
+`GET /api/users` = এই রাউটের মাধ্যমে সব ইউসারকে পাওয়া যাবে।
+
+`GET /api/users/:userId` = এই রাউটের মাধ্যমে নির্দিষ্ট একজন ইউসারকে পাওয়া যাবে।
+
+`PUT /api/users/:userId` = এই রাউটের মাধ্যমে নির্দিষ্ট ইউসারের তথ্য আপডেট করা যাবে।
+
+`PUT /api/users/:userId/orders` = এই রাউটের মাধ্যমে নির্দিষ্ট ইউজারের অর্ডার যুক্ত করা যাবে।
+
+`DELETE /api/users/:userId` = এই রাউটের মাধ্যমে নির্দিষ্ট ইউজারকে ডিলিট করা যাবে
