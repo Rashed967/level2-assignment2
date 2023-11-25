@@ -15,6 +15,7 @@
 এটাকে ব্যবহার করতে চাইলে আপনার মেশিনে বেশ কিছু লাইব্ররি ও টুল ডিপেন্ডেসি হিসেবে এ্যাড করতে হবে। নীচে আমি সবগুলোর তালিকা দিয়ে দিচ্ছি।
 
 **Install @vercel/node**
+
 `npm install @vercel/node@3.0.11`
 
 **Install bcrypt**
@@ -46,3 +47,49 @@
 
 **Install uuid**
 `npm install uuid@7.0.3`
+
+## for dev dependency
+
+### Install @types/bcrypt
+
+`npm install @types/bcrypt@^5.0.2 --save-dev`
+
+### Install @types/cors
+
+`npm install @types/cors@^2.8.17 --save-dev`
+
+### Install @types/express
+
+`npm install @types/express@^4.17.21 --save-dev`
+
+### Install @typescript-eslint/eslint-plugin
+
+`npm install @typescript-eslint/eslint-plugin@^6.12.0 --save-dev`
+
+### Install @typescript-eslint/parser
+
+`npm install @typescript-eslint/parser@^6.12.0 --save-dev`
+
+### Install eslint
+
+`npm install eslint@^8.54.0 --save-dev`
+
+### Install eslint-config-prettier
+
+`npm install eslint-config-prettier@^9.0.0 --save-dev`
+
+### Install prettier
+
+`npm install prettier@^3.1.0 --save-dev`
+
+### Install ts-node-dev
+
+`npm install ts-node-dev@^2.0.0 --save-dev`
+
+### Install typescript
+
+`npm install typescript@^5.3.2 --save-dev`
+
+### Install zod
+
+`npm install zod@^3.22.4 --save-dev`
