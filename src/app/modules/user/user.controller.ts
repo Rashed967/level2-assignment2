@@ -146,9 +146,9 @@ const addProduct = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.userId);
     const product = req.body;
-    const parseData = zodProduct.safeParse(product)
+    const parseData = zodProduct.safeParse(product);
 
-    if(parseData.success){
+    if (parseData.success) {
       const existingUser = await userBusinessLogic.checkExistingUser(userId);
       if (existingUser) {
         const result = await userBusinessLogic.addProduct(userId, product);
@@ -157,8 +157,7 @@ const addProduct = async (req: Request, res: Response) => {
           message: 'Order created successfully!',
           data: null,
         });
-      }
-      else {
+      } else {
         res.status(500).json({
           success: false,
           message: 'User not found',
@@ -168,15 +167,13 @@ const addProduct = async (req: Request, res: Response) => {
           },
         });
       }
-    }
-    else{
+    } else {
       res.status(400).json({
         success: 'failed',
         message: 'Cannot save product to order',
         error: parseData.error,
       });
     }
-
   } catch (error: any) {
     res.status(500).json({
       success: false,

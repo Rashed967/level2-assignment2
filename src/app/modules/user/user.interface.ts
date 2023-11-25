@@ -1,23 +1,23 @@
 import { Model } from 'mongoose';
 
-export interface TUserName {
+export type TUserName = {
   firstName: string;
   lastName: string;
-}
+};
 
-export interface TUserAddress {
+export type TUserAddress = {
   street: string;
   city: string;
   country: string;
-}
+};
 
-export interface TProduct {
+export type TProduct = {
   productName: string;
   price: number;
   qauntity: number;
-}
+};
 
-export interface TUser {
+export type TUser = {
   userId: number;
   username: string;
   password: string;
@@ -27,22 +27,24 @@ export interface TUser {
   isActive: boolean;
   hobbies: string[];
   address: TUserAddress;
-}
+  orders?: Array<TProduct>;
+};
 
 // user static method model
 
-export interface UserMethodModel extends Model<TUser> {
+export type UserMethodModel = Model<TUser> & {
   createUserInDB(user: TUser): Promise<TUser | null>;
   findSingleUserById(userId: number): Promise<TUser | null>;
-  updateSingleUserById(userId: number, updateDoc): Promise<TUser | null>;
+  updateSingleUserById(
+    userId: number,
+    updateDoc: unknown,
+  ): Promise<TUser | null>;
   deleteSingleUserById(userId: number): Promise<TUser | null>;
   addProductToOrderArray(
     userId: number,
     product: TProduct,
   ): Promise<TProduct | null>;
   getAllOrderFromSingleUser(userId: number): Promise<TProduct[] | null>;
-  countTotalPriceOfOrdersforSingleUser(
-    userId: number,
-  ): Promise<TProduct | null>;
+  countTotalPriceOfOrdersforSingleUser(userId: number): unknown;
   checkExistingUser(userId: number): Promise<TUser>;
-}
+};

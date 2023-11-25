@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:prod": "node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "build": "tsc",
     "lint": "eslint  --ignore-path .eslintignore src --ext .js,.ts",
@@ -16,14 +17,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vercel/node": "^3.0.11",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "debug": "^4.3.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

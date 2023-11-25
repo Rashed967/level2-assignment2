@@ -25,6 +25,7 @@ const ProductSchema = new Schema({
   quantity: { type: Number, required: true },
 });
 
+
 export const UserSchema = new Schema<TUser, UserMethodModel>({
   userId: { type: Number, required: true, unique: true },
   username: { type: String, required: true, unique: true },
@@ -38,7 +39,7 @@ export const UserSchema = new Schema<TUser, UserMethodModel>({
     required: true,
   },
   address: { type: UserAddressSchema, required: true },
-  orders: { type: Array(ProductSchema) },
+  orders: { type: [ProductSchema], required: false },
 });
 
 // user static method

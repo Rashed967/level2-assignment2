@@ -27,9 +27,8 @@ export const zodProduct = z
 //   .min(3, { message: 'userId wood be at least 3 character' })
 //   .max(8, { message: 'userId wood be most 8 character' }),
 
-export const zodUserSchema = z.object({
-  userId: z
-    .number(),
+export const zodUserSchema = z.object<TUser>({
+  userId: z.number(),
 
   username: z
     .string()
@@ -55,6 +54,5 @@ export const zodUserSchema = z.object({
     invalid_type_error: 'hobbies filed must be a array of string',
   }),
   address: zodAddreesSchema.required(),
+  orders: z.array(zodProduct).optional(),
 });
-
-
