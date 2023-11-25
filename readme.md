@@ -18,17 +18,8 @@
 
 `npm install @vercel/node@3.0.11`
 
-### Install bcrypt
-`npm install bcrypt@5.1.1`
-
-### Install bcryptjs
-`npm install bcryptjs@2.4.3`
-
 ### Install cors
 `npm install cors@2.8.5`
-
-### Install debug
-`npm install debug@4.3.4`
 
 ### Install dotenv
 `npm install dotenv@16.3.1`
@@ -44,9 +35,6 @@
 
 ### Install nodemon
 `npm install nodemon@3.0.1`
-
-### Install uuid
-`npm install uuid@7.0.3`
 
 ## for dev dependency
 
@@ -93,3 +81,7 @@
 ### Install zod
 
 `npm install zod@^3.22.4 --save-dev`
+
+## কনফিগারেশন
+
+কনফিগারেশনের জন্য আপনার প্রজেক্টে `eslint` এবং `prettier` সেট করা লাগতে পারে। কীভাবে এই দুটো ইনস্টল করা যায় বিস্তারিত জানতে [এই টিউটোরিয়ালটি](https://blog.logrocket.com/linting-typescript-eslint-prettier/) ফলো করুন।
