@@ -85,23 +85,12 @@ UserSchema.statics.addProductToOrderArray = async function (
   userId: number,
   product: TProduct,
 ) {
-  try {
-    const user = await User.findOne({ userId });
-    if (user) {
-      if ('orders' in user) {
-        user.orders.push(product);
-        const result = await user.save();
-        return result;
-      } else {
-        user.orders = [ProductSchema];
-        const result = await user.save();
-        return result;
-      }
-      return null;
-    }
-  } catch (error) {
-    return error;
-  }
+  const user = await User.findOneAndUpdate(
+    { userId },
+    { $push: { orders: product } },
+    { new: true, runValidators: true, projection: { password: 0 } },
+  );
+  return user;
 };
 
 // get all order from a single user
@@ -114,22 +103,22 @@ UserSchema.statics.getAllOrderFromSingleUser = async function (userId: number) {
 UserSchema.statics.countTotalPriceOfOrdersforSingleUser = async function (
   userId: number,
 ) {
-    const totalPriceAgrregate = User.aggregate([
-      {
-        $match: {
-          userId: { $eq: userId },
+  const totalPrice = User.aggregate([
+    {
+      $match: {
+        userId: { $eq: userId },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalPrice: {
+          $sum: '$orders.price',
         },
       },
-      {
-        $project: {
-          _id: 0,
-          totalPrice: {
-            $sum: '$orders.price',
-          },
-        },
-      },
-    ]);
-    return totalPriceAgrregate;
+    },
+  ]);
+  return totalPrice;
 };
 
 // check existing user

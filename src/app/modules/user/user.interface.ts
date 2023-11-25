@@ -47,7 +47,6 @@ export interface UserMethodModel extends Model<TUser> {
   deleteSingleUserById(userId: number): Promise<TUser | null>;
   addProductToOrderArray(userId: number, product:TProduct) : Promise<TProduct | null>,
   getAllOrderFromSingleUser(userId: number) : Promise<TProduct[] | null>,
-  countTotalPriceOfOrdersforSingleUser(userId: number) : Promise<T>,
+  countTotalPriceOfOrdersforSingleUser(userId: number) : Promise<TProduct | null>,
   checkExistingUser(userId: number) : Promise<TUser>
-
 }
